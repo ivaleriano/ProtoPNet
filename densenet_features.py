@@ -191,7 +191,8 @@ def densenet121_features(pretrained=False, **kwargs):
         # to find such keys.
         pattern = re.compile(
             r'^(.*denselayer\d+\.(?:norm|relu|conv))\.((?:[12])\.(?:weight|bias|running_mean|running_var))$')
-        state_dict = model_zoo.load_url(model_urls['densenet121'], model_dir=model_dir)
+        #state_dict = model_zoo.load_url(model_urls['densenet121'], model_dir=model_dir)
+        state_dict = model.load_state_dict(torch.load('/home/icxel/saved_models/densenet121/010/280push0.6509_dict.pth'))
         for key in list(state_dict.keys()):
             '''
             example

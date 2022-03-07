@@ -285,7 +285,7 @@ class PPNet(nn.Module):
 
 
 
-def construct_PPNet(base_architecture, pretrained=True, img_size=224,
+def construct_PPNet(base_architecture, pretrained=False, img_size=224,
                     prototype_shape=(2000, 512, 1, 1), num_classes=200,
                     prototype_activation_function='log',
                     add_on_layers_type='bottleneck'):

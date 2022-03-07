@@ -1,9 +1,9 @@
+from operator import is_
 import os
 import shutil
 
 import torch
 import torch.utils.data
-# import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
@@ -19,6 +19,10 @@ import save
 from log import create_logger
 from preprocess import mean, std, preprocess_input_function
 
+from train_adni_mri import get_image_transform
+from train_adni_mri import DIAGNOSIS_CODES_BINARY
+from train_adni_mri import AdniDateset
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-gpuid', nargs=1, type=str, default='0') # python3 main.py -gpuid=0,1,2,3
 args = parser.parse_args()
@@ -33,12 +37,13 @@ base_architecture_type = re.match('^[a-z]*', base_architecture).group(0)
 
 model_dir = './saved_models/' + base_architecture + '/' + experiment_run + '/'
 makedir(model_dir)
-shutil.copy(src=os.path.join(os.getcwd(), __file__), dst=model_dir)
-shutil.copy(src=os.path.join(os.getcwd(), 'settings.py'), dst=model_dir)
-shutil.copy(src=os.path.join(os.getcwd(), base_architecture_type + '_features.py'), dst=model_dir)
-shutil.copy(src=os.path.join(os.getcwd(), 'model.py'), dst=model_dir)
-shutil.copy(src=os.path.join(os.getcwd(), 'train_and_test.py'), dst=model_dir)
-
+tmp_dir = 'shape_continuum/ProtoPNet'
+shutil.copy(src=os.path.join(tmp_dir, __file__), dst=model_dir)
+shutil.copy(src=os.path.join(tmp_dir, 'settings.py'), dst=model_dir)
+shutil.copy(src=os.path.join(tmp_dir, base_architecture_type + '_features.py'), dst=model_dir)
+shutil.copy(src=os.path.join(tmp_dir, 'model.py'), dst=model_dir)
+shutil.copy(src=os.path.join(tmp_dir, 'train_and_test.py'), dst=model_dir)
+# os.getcwd()
 log, logclose = create_logger(log_filename=os.path.join(model_dir, 'train.log'))
 img_dir = os.path.join(model_dir, 'img')
 makedir(img_dir)
@@ -55,35 +60,64 @@ normalize = transforms.Normalize(mean=mean,
                                  std=std)
 
 # all datasets
+train_img_transform = get_image_transform(is_training=True)
+eval_img_transform = get_image_transform(is_training=False)
+
+target_labels = ["DX"]
+target_transform_map = DIAGNOSIS_CODES_BINARY
+target_transform = {"DX": lambda x: target_transform_map[x]}
 # train set
-train_dataset = datasets.ImageFolder(
+# train_dataset = datasets.ImageFolder(
+#     train_dir,
+#     transforms.Compose([
+#         transforms.Resize(size=(img_size, img_size)),
+#         transforms.ToTensor(),
+#         normalize,
+#     ]))
+print("Loading training data from", train_dir)
+train_dataset = AdniDateset(
     train_dir,
-    transforms.Compose([
-        transforms.Resize(size=(img_size, img_size)),
-        transforms.ToTensor(),
-        normalize,
-    ]))
+    target_labels=target_labels,
+    transform=train_img_transform,
+    target_transform=target_transform,
+    is_training=True
+)
 train_loader = torch.utils.data.DataLoader(
     train_dataset, batch_size=train_batch_size, shuffle=True,
     num_workers=4, pin_memory=False)
 # push set
-train_push_dataset = datasets.ImageFolder(
-    train_push_dir,
-    transforms.Compose([
-        transforms.Resize(size=(img_size, img_size)),
-        transforms.ToTensor(),
-    ]))
+# train_push_dataset = datasets.ImageFolder(
+#     train_push_dir,
+#     transforms.Compose([
+#         transforms.Resize(size=(img_size, img_size)),
+#         transforms.ToTensor(),
+#     ]))
+print("Loading training data 2 from", train_dir)
+train_push_dataset = AdniDateset(
+    train_dir,
+    target_labels=target_labels,
+    transform=eval_img_transform,
+    target_transform=target_transform,
+)
 train_push_loader = torch.utils.data.DataLoader(
     train_push_dataset, batch_size=train_push_batch_size, shuffle=False,
     num_workers=4, pin_memory=False)
 # test set
-test_dataset = datasets.ImageFolder(
-    test_dir,
-    transforms.Compose([
-        transforms.Resize(size=(img_size, img_size)),
-        transforms.ToTensor(),
-        normalize,
-    ]))
+# test_dataset = datasets.ImageFolder(
+#     test_dir,
+#     transforms.Compose([
+#         transforms.Resize(size=(img_size, img_size)),
+#         transforms.ToTensor(),
+#         normalize,
+#     ]))
+print("Loading test data from", test_dir)
+test_dataset = AdniDateset(
+            test_dir,
+            target_labels=target_labels,
+            transform=eval_img_transform,
+            target_transform=target_transform,
+            is_training=True # normalize image
+        )
 test_loader = torch.utils.data.DataLoader(
     test_dataset, batch_size=test_batch_size, shuffle=False,
     num_workers=4, pin_memory=False)
@@ -96,7 +130,7 @@ log('batch size: {0}'.format(train_batch_size))
 
 # construct the model
 ppnet = model.construct_PPNet(base_architecture=base_architecture,
-                              pretrained=True, img_size=img_size,
+                              pretrained=False, img_size=img_size,
                               prototype_shape=prototype_shape,
                               num_classes=num_classes,
                               prototype_activation_function=prototype_activation_function,
@@ -152,8 +186,8 @@ for epoch in range(num_train_epochs):
 
     accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
                     class_specific=class_specific, log=log)
-    save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'nopush', accu=accu,
-                                target_accu=0.70, log=log)
+    save.save_model_w_condition(model=ppnet_multi, model_dir=model_dir, model_name=str(epoch) + 'nopush', accu=accu,
+                                target_accu=0.70, log=log) #changed by Icxel, target_accu = 0.70
 
     if epoch >= push_start and epoch in push_epochs:
         push.push_prototypes(
@@ -171,7 +205,7 @@ for epoch in range(num_train_epochs):
             log=log)
         accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
                         class_specific=class_specific, log=log)
-        save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'push', accu=accu,
+        save.save_model_w_condition(model=ppnet_multi, model_dir=model_dir, model_name=str(epoch) + 'push', accu=accu,
                                     target_accu=0.70, log=log)
 
         if prototype_activation_function != 'linear':
@@ -182,7 +216,7 @@ for epoch in range(num_train_epochs):
                               class_specific=class_specific, coefs=coefs, log=log)
                 accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
                                 class_specific=class_specific, log=log)
-                save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + '_' + str(i) + 'push', accu=accu,
+                save.save_model_w_condition(model=ppnet_multi, model_dir=model_dir, model_name=str(epoch) + '_' + str(i) + 'push', accu=accu,
                                             target_accu=0.70, log=log)
    
 logclose()

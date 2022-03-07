@@ -20,6 +20,10 @@ from preprocess import preprocess_input_function
 
 import argparse
 
+from train_adni_mri import get_image_transform
+from train_adni_mri import DIAGNOSIS_CODES_BINARY
+from train_adni_mri import AdniDateset
+
 # Usage: python3 global_analysis.py -modeldir='./saved_models/' -model=''
 parser = argparse.ArgumentParser()
 parser.add_argument('-gpuid', nargs=1, type=str, default='0')
@@ -52,23 +56,42 @@ train_dir = train_push_dir
 batch_size = 100
 
 # train set: do not normalize
-train_dataset = datasets.ImageFolder(
+# all datasets
+train_img_transform = get_image_transform(is_training=True)
+eval_img_transform = get_image_transform(is_training=False)
+
+target_labels = ["DX"]
+target_transform_map = DIAGNOSIS_CODES_BINARY
+target_transform = {"DX": lambda x: target_transform_map[x]}
+train_dataset = AdniDateset(
     train_dir,
-    transforms.Compose([
-        transforms.Resize(size=(img_size, img_size)),
-        transforms.ToTensor(),
-    ]))
+    target_labels=target_labels,
+    transform=train_img_transform,
+    target_transform=target_transform
+)
+# train_dataset = datasets.ImageFolder(
+#     train_dir,
+#     transforms.Compose([
+#         transforms.Resize(size=(img_size, img_size)),
+#         transforms.ToTensor(),
+#     ]))
 train_loader = torch.utils.data.DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True,
     num_workers=4, pin_memory=False)
 
 # test set: do not normalize
-test_dataset = datasets.ImageFolder(
-    test_dir,
-    transforms.Compose([
-        transforms.Resize(size=(img_size, img_size)),
-        transforms.ToTensor(),
-    ]))
+test_dataset = AdniDateset(
+            test_dir,
+            target_labels=target_labels,
+            transform=eval_img_transform,
+            target_transform=target_transform
+        )
+# test_dataset = datasets.ImageFolder(
+#     test_dir,
+#     transforms.Compose([
+#         transforms.Resize(size=(img_size, img_size)),
+#         transforms.ToTensor(),
+#     ]))
 test_loader = torch.utils.data.DataLoader(
     test_dataset, batch_size=batch_size, shuffle=True,
     num_workers=4, pin_memory=False)
