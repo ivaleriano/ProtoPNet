@@ -208,7 +208,6 @@ class AdniDateset(Dataset):
         #img = img.unsqueeze(0)
         #data_point.append(img)
         #data_point.append(subject)
-
         for label in self.target_labels:
             target = self.targets[label][index]
             if self.target_transform is not None:
