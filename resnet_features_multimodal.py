@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
+from typing import List, Sequence, Tuple
 
 model_urls = {
     'resnet18': 'https://download.pytorch.org/models/resnet18-5c106cde.pth',
@@ -124,7 +125,7 @@ class ResNet_features(nn.Module):
     the average pooling and final fully convolutional layer is removed
     '''
 
-    def __init__(self, block, layers, num_classes=1000, zero_init_residual=False):
+    def __init__(self, block, layers, num_classes=2, zero_init_residual=False):
         super(ResNet_features, self).__init__()
 
         self.inplanes = 64
@@ -193,6 +194,14 @@ class ResNet_features(nn.Module):
 
         return nn.Sequential(*layers)
 
+    @property
+    def input_names(self) -> Sequence[str]:
+        return ("image",)
+
+    @property
+    def output_names(self) -> Sequence[str]:
+        return ("feature_map",)
+
     def forward(self, x):
         x = self.conv1(x)
         x = self.bn1(x)
@@ -206,6 +215,7 @@ class ResNet_features(nn.Module):
         x = self.layer4(x)
 
         return x
+        #return {"feature_map": x}
 
     def conv_info(self):
         return self.kernel_sizes, self.strides, self.paddings

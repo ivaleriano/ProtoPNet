@@ -4,9 +4,9 @@ mean = (0.485, 0.456, 0.406)
 std = (0.229, 0.224, 0.225)
 
 def preprocess(x, mean, std):
-    assert x.size(1) == 3
+    #assert x.size(1) == 3
     y = torch.zeros_like(x)
-    for i in range(3):
+    for i in range(x.size(1)):
         y[:, i, :, :] = (x[:, i, :, :] - mean[i]) / std[i]
     return y
 
@@ -19,9 +19,9 @@ def preprocess_input_function(x):
     return preprocess(x, mean=mean, std=std)
 
 def undo_preprocess(x, mean, std):
-    assert x.size(1) == 3
+    # x.size(1) == 3
     y = torch.zeros_like(x)
-    for i in range(3):
+    for i in range(x.size(1)):
         y[:, i, :, :] = x[:, i, :, :] * std[i] + mean[i]
     return y
 

@@ -22,11 +22,12 @@ def push_prototypes(dataloader, # pytorch dataloader (must be unnormalized in [0
                     proto_bound_boxes_filename_prefix=None,
                     save_prototype_class_identity=True, # which class the prototype image comes from
                     log=print,
-                    prototype_activation_function_in_numpy=None):
+                    prototype_activation_function_in_numpy=None,
+                    class_to_push='both'):
 
     prototype_network_parallel.eval()
     log('\tpush')
-
+    
     start = time.time()
     prototype_shape = prototype_network_parallel.module.prototype_shape
     n_prototypes = prototype_network_parallel.module.num_prototypes
@@ -209,7 +210,7 @@ def update_prototypes_on_batch(search_batch_input,
             # that generates the representation
             protoL_rf_info = prototype_network_parallel.module.proto_layer_rf_info
             rf_prototype_j = compute_rf_prototype(search_batch.size(2), batch_argmin_proto_dist_j, protoL_rf_info)
-            
+
             # get the whole image
             original_img_j = search_batch_input[rf_prototype_j[0]]
             original_img_j = original_img_j.numpy()
@@ -221,6 +222,7 @@ def update_prototypes_on_batch(search_batch_input,
                                       rf_prototype_j[3]:rf_prototype_j[4], :]
             
             # save the prototype receptive field information
+            proto_rf_boxes = proto_rf_boxes
             proto_rf_boxes[j, 0] = rf_prototype_j[0] + start_index_of_search_batch
             proto_rf_boxes[j, 1] = rf_prototype_j[1]
             proto_rf_boxes[j, 2] = rf_prototype_j[2]
@@ -245,6 +247,7 @@ def update_prototypes_on_batch(search_batch_input,
                                          proto_bound_j[2]:proto_bound_j[3], :]
 
             # save the prototype boundary (rectangular boundary of highly activated region)
+            proto_bound_boxes =proto_bound_boxes
             proto_bound_boxes[j, 0] = proto_rf_boxes[j, 0]
             proto_bound_boxes[j, 1] = proto_bound_j[0]
             proto_bound_boxes[j, 2] = proto_bound_j[1]
@@ -261,9 +264,10 @@ def update_prototypes_on_batch(search_batch_input,
                             proto_act_img_j)
                 if prototype_img_filename_prefix is not None:
                     # save the whole image containing the prototype as png
+                    #img_to_save = np.stack((original_img_j,), axis=-1) #added by icxel
                     plt.imsave(os.path.join(dir_for_saving_prototypes,
                                             prototype_img_filename_prefix + '-original' + str(j) + '.png'),
-                               original_img_j,
+                               original_img_j, #original_img_j, icxel
                                vmin=0.0,
                                vmax=1.0)
                     # overlay (upsampled) self activation on original image and save the result
@@ -295,9 +299,10 @@ def update_prototypes_on_batch(search_batch_input,
                                    vmax=1.0)
                     
                     # save the prototype image (highly activated region of the whole image)
+                    # proto_to_save = np.stack((proto_img_j,), axis=-1) # added icxel
                     plt.imsave(os.path.join(dir_for_saving_prototypes,
                                             prototype_img_filename_prefix + str(j) + '.png'),
-                               proto_img_j,
+                               proto_img_j, #proto_img_j, icxel
                                vmin=0.0,
                                vmax=1.0)
                 

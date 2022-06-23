@@ -1,5 +1,6 @@
 base_architecture='resnet18'
-img_size=138
+img_size_mri=138
+img_size_pet = 161
 prototype_shape=(30,128,1,1) #(2000,128,1,1)
 num_classes=2
 prototype_activation_function='log'

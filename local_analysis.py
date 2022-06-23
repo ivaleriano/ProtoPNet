@@ -1,9 +1,12 @@
 ##### MODEL AND DATA LOADING
+#from ctypes.wintypes import HICON
 import torch
 import torch.utils.data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+from torchvision.utils import save_image
 from torch.autograd import Variable
+import torchio as tio
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
@@ -21,6 +24,9 @@ import train_and_test as tnt
 import save
 from log import create_logger
 from preprocess import mean, std, preprocess_input_function, undo_preprocess_input_function
+from train_adni_mri import AdniDateset
+from train_adni_mri import get_image_transform
+from train_adni_mri import DIAGNOSIS_CODES_BINARY
 
 import argparse
 
@@ -87,16 +93,31 @@ normalize = transforms.Normalize(mean=mean,
 
 # load the test data and check test accuracy
 from settings import test_dir
+#data_path = '/mnt/nas/Users/Sebastian/adni-mri-pet/registered/classification-nomci/mri-pet'
+#test_dir = [data_path + '/3-test.h5']
 if check_test_accu:
     test_batch_size = 100
 
-    test_dataset = datasets.ImageFolder(
-        test_dir,
-        transforms.Compose([
-            transforms.Resize(size=(img_size, img_size)),
-            transforms.ToTensor(),
-            normalize,
-        ]))
+    print(img_size)
+    eval_img_transform = get_image_transform(is_training=False)
+
+    target_labels = ["DX"]
+    target_transform_map = DIAGNOSIS_CODES_BINARY
+    target_transform = {"DX": lambda x: target_transform_map[x]}
+    # test_dataset = datasets.ImageFolder(
+    #     test_dir,
+    #     transforms.Compose([
+    #         transforms.Resize(size=(img_size, img_size)),
+    #         transforms.ToTensor(),
+    #         normalize,
+    #     ]))
+    test_dataset = AdniDateset(
+                test_dir,
+                target_labels=target_labels,
+                transform=eval_img_transform,
+                target_transform=target_transform,
+                is_training=False
+            )
     test_loader = torch.utils.data.DataLoader(
         test_dataset, batch_size=test_batch_size, shuffle=True,
         num_workers=4, pin_memory=False)
@@ -133,6 +154,7 @@ def save_preprocessed_img(fname, preprocessed_imgs, index=0):
     undo_preprocessed_img = np.transpose(undo_preprocessed_img, [1,2,0])
     
     plt.imsave(fname, undo_preprocessed_img)
+    #plt.imsave(fname, np.stack((undo_preprocessed_img,), axis=-1)) #added by icxel)
     return undo_preprocessed_img
 
 def save_prototype(fname, epoch, index):
@@ -170,19 +192,27 @@ def imsave_with_bbox(fname, img_rgb, bbox_height_start, bbox_height_end,
     plt.imsave(fname, img_rgb_float)
 
 # load the test image and forward it through the network
-preprocess = transforms.Compose([
-   transforms.Resize((img_size,img_size)),
-   transforms.ToTensor(),
-   normalize
-])
+# preprocess = transforms.Compose([
+#    transforms.Resize((img_size,img_size)),
+#    transforms.ToTensor(),  
+#    normalize
+# ])
 
+# ICXEL - preprocessing already done when creating test images
+preprocess_transforms = []
+preprocess_transforms.append(tio.RescaleIntensity(out_min_max=(0, 1)))
+preprocess = tio.Compose(preprocess_transforms)
 img_pil = Image.open(test_image_path)
-img_tensor = preprocess(img_pil)
-img_variable = Variable(img_tensor.unsqueeze(0))
+img_2d = preprocess(torch.from_numpy(np.transpose(np.asarray(img_pil), (2,0,1))).unsqueeze(-1))
+image_new_name = "test_image_toTensor.png"
+save_image(img_2d[:,:,:,0], os.path.join(save_analysis_path, image_new_name))
+#img_tensor = preprocess(img_pil) commented by Icxel
+
+#img_tensor = img_tensor[0,:,:].unsqueeze(0) # added Icxel
+img_variable = Variable(img_2d[:,:,:,0].unsqueeze(0)) # Icxel, original img_tensor.unsqueeze(0)
 
 images_test = img_variable.cuda()
 labels_test = torch.tensor([test_image_label])
-
 logits, min_distances = ppnet_multi(images_test)
 conv_output, distances = ppnet.push_forward(images_test)
 prototype_activations = ppnet.distance_2_similarity(min_distances)
@@ -209,7 +239,7 @@ makedir(os.path.join(save_analysis_path, 'most_activated_prototypes'))
 
 log('Most activated 10 prototypes of this image:')
 array_act, sorted_indices_act = torch.sort(prototype_activations[idx])
-for i in range(1,11):
+for i in range(1,9):
     log('top {0} activated prototype for this image:'.format(i))
     save_prototype(os.path.join(save_analysis_path, 'most_activated_prototypes',
                                 'top-%d_activated_prototype.png' % i),
@@ -245,7 +275,8 @@ for i in range(1,11):
     #plt.axis('off')
     plt.imsave(os.path.join(save_analysis_path, 'most_activated_prototypes',
                             'most_highly_activated_patch_by_top-%d_prototype.png' % i),
-               high_act_patch)
+                            high_act_patch)
+               #np.stack((high_act_patch,), axis=-1)) #added by icxel)
     log('most highly activated patch by this prototype shown in the original image:')
     imsave_with_bbox(fname=os.path.join(save_analysis_path, 'most_activated_prototypes',
                             'most_highly_activated_patch_in_original_img_by_top-%d_prototype.png' % i),
@@ -319,7 +350,8 @@ for i,c in enumerate(topk_classes.detach().cpu().numpy()):
         #plt.axis('off')
         plt.imsave(os.path.join(save_analysis_path, 'top-%d_class_prototypes' % (i+1),
                                 'most_highly_activated_patch_by_top-%d_prototype.png' % prototype_cnt),
-                   high_act_patch)
+                                high_act_patch)
+                   #np.stack((high_act_patch,), axis=-1))#added by icxel,), axis=-1) #added by icxel)
         log('most highly activated patch by this prototype shown in the original image:')
         imsave_with_bbox(fname=os.path.join(save_analysis_path, 'top-%d_class_prototypes' % (i+1),
                                             'most_highly_activated_patch_in_original_img_by_top-%d_prototype.png' % prototype_cnt),
