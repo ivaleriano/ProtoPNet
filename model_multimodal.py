@@ -93,9 +93,10 @@ class DualPPNet(nn.Module):
     def __init__(self, features, img_size, prototype_shape, proto_layer_rf_info, num_classes, init_weights=True, prototype_activation_function='log',
                  add_on_layers_type='bottleneck'):
         super().__init__()
-        self.ppnet1 = PPNet(features, img_size, prototype_shape, proto_layer_rf_info["t1"], num_classes,
+        self.img_size = img_size
+        self.ppnet1 = PPNet(features, self.img_size, prototype_shape, proto_layer_rf_info["t1"], num_classes,
                             init_weights, prototype_activation_function, add_on_layers_type)
-        self.ppnet2 = PPNet(features, img_size, prototype_shape, proto_layer_rf_info["fdg"], num_classes,
+        self.ppnet2 = PPNet(features, self.img_size, prototype_shape, proto_layer_rf_info["fdg"], num_classes,
                             init_weights, prototype_activation_function, add_on_layers_type)
         #self.global_pool = nn.AdaptiveAvgPool2d(1)
         self.prototype_vectors = nn.Parameter(torch.rand(prototype_shape),
@@ -104,11 +105,11 @@ class DualPPNet(nn.Module):
         self.prototype_shape = prototype_shape
         self.num_prototypes = prototype_shape[0] 
         self.num_classes = num_classes
-        self.prototype_class_identity = torch.zeros(self.num_prototypes,
+        self.prototype_class_identity = torch.zeros(self.num_prototypes*2,
                                                     self.num_classes) #commented for baseline Icxel
         num_prototypes_per_class = self.num_prototypes // self.num_classes #commented for baseline Icxel
-        for j in range(self.num_prototypes):
-            self.prototype_class_identity[j, j // num_prototypes_per_class] = 1 #commented for baseline Icxel
+        for j in range(self.num_prototypes*2):
+            self.prototype_class_identity[j, j // (num_prototypes_per_class*2)] = 1 #commented for baseline Icxel
 
         features_name = str(self.features).upper()
         if features_name.startswith('VGG') or features_name.startswith('RES'):
@@ -121,6 +122,33 @@ class DualPPNet(nn.Module):
             raise Exception('other base base_architecture NOT implemented')
         #print(first_add_on_layer_in_channels)
 
+        if add_on_layers_type == 'bottleneck':
+            add_on_layers = []
+            current_in_channels = first_add_on_layer_in_channels
+            while (current_in_channels > self.prototype_shape[1]) or (len(add_on_layers) == 0):
+                current_out_channels = max(self.prototype_shape[1], (current_in_channels // 2))
+                add_on_layers.append(nn.Conv2d(in_channels=current_in_channels,
+                                               out_channels=current_out_channels,
+                                               kernel_size=1))
+                add_on_layers.append(nn.ReLU())
+                add_on_layers.append(nn.Conv2d(in_channels=current_out_channels,
+                                               out_channels=current_out_channels,
+                                               kernel_size=1))
+                if current_out_channels > self.prototype_shape[1]:
+                    add_on_layers.append(nn.ReLU())
+                else:
+                    assert(current_out_channels == self.prototype_shape[1])
+                    add_on_layers.append(nn.Sigmoid())
+                current_in_channels = current_in_channels // 2
+            self.add_on_layers = nn.Sequential(*add_on_layers)
+        else:
+            self.add_on_layers = nn.Sequential(
+                nn.Conv2d(in_channels=first_add_on_layer_in_channels, out_channels=self.prototype_shape[1], kernel_size=1),
+                nn.ReLU(),
+                nn.Conv2d(in_channels=self.prototype_shape[1], out_channels=self.prototype_shape[1], kernel_size=1),
+                nn.Sigmoid()
+                )
+
         self.fc1 = nn.Sequential(
                nn.Conv2d(in_channels=first_add_on_layer_in_channels, out_channels=prototype_shape[1],
                    kernel_size=1),
@@ -129,16 +157,9 @@ class DualPPNet(nn.Module):
                    kernel_size=1),
                nn.Sigmoid()
                )
-        self.fc2 = nn.Linear(self.num_prototypes, num_classes,
+        self.fc2 = nn.Linear(self.num_prototypes*2, num_classes,
                                    bias=False) # do not use bias (= last_layer)
-        
-        #self.fc1 = nn.Sequential(
-        #    nn.Linear(2 * 8 * n_basefilters, 4 * n_basefilters),
-        #    nn.PReLU(),
-        #)
-        #self.dropout = nn.Dropout(p=0.4)
-        #self.fc2 = nn.Linear(4 * n_basefilters, n_outputs)
-
+    
     @property
     def input_names(self) -> Sequence[str]:
         return ("t1", "fdg")
@@ -150,21 +171,10 @@ class DualPPNet(nn.Module):
     def forward(self, t1, fdg):
         out1, min_distances1 = self.ppnet1(t1)
         out2, min_distances2 = self.ppnet2(fdg)
-        out = torch.cat([out1, out2], dim=1)
-        min_distances = min_distances1 + min_distances2
-        #out = torch.cat([out1["feature_map"], out2["feature_map"]], dim=1) # comment for notebook
-        #out = torch.cat([out1, out2], dim=1) # comment for notebook  - lATEST
-        #out = self.global_pool(out)
-        #out = self.fc1(out)
-        #out = self.fc2(out)
-        #out = torch.cat([out1["feature_map"]], dim=1)
-        #out = self.fc1(out)
-       # out = self.dropout(out)
-        #out = self.fc2(out)
-
-        return (out, min_distances)
-        #return {"logits": out}
-       # return {'t1':(out1,min_distances1),'fdg':(out2, min_distances2)}
+        #out = torch.cat([out1, out2], dim=1)
+        out = out1+out2
+        min_distances = torch.cat([min_distances1, min_distances2], dim=1)
+        return (out, min_distances, out1, min_distances1, out2, min_distances2)
      
     def conv_features(self, x):
         '''
@@ -487,7 +497,7 @@ class PPNet(nn.Module):
 
 
 
-def construct_DualResNet(base_architecture, pretrained=False, img_size= {"t1": 138, "fdg": 161},#224,
+def construct_DualResNet(base_architecture, pretrained=False, img_size= {"t1": 138, "fdg": 130},#224,
                     prototype_shape=(2000, 512, 1, 1), num_classes=200,
                     prototype_activation_function='log',
                     add_on_layers_type='bottleneck'):
@@ -514,7 +524,7 @@ def construct_DualResNet(base_architecture, pretrained=False, img_size= {"t1": 1
                  prototype_activation_function=prototype_activation_function,
                  add_on_layers_type=add_on_layers_type)
 
-def construct_DualPPNet(base_architecture, pretrained=False, img_size = {"t1":138, "fdg":161}, #img_size=224,
+def construct_DualPPNet(base_architecture, pretrained=False, img_size = {"t1":138, "fdg":130}, #img_size=224,
                     prototype_shape=(2000, 512, 1, 1), num_classes=200,
                     prototype_activation_function='log',
                     add_on_layers_type='bottleneck'):

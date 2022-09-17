@@ -1,3 +1,4 @@
+from math import isnan
 import time
 import torch
 
@@ -17,9 +18,14 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
     n_batches = 0
     total_cross_entropy = 0
     total_cluster_cost = 0
+    total_cluster_dem = 0
+    total_cluster_cn = 0
     # separation cost is meaningful only for class_specific
     total_separation_cost = 0
+    total_sep_dem = 0
+    total_sep_cn = 0
     total_avg_separation_cost = 0
+    total_loss = 0
 
     for i, (image, label) in enumerate(dataloader):
         input = image.cuda()
@@ -31,6 +37,7 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
             # nn.Module has implemented __call__() function
             # so no need to call .forward
             output, min_distances = model(input)
+            #log('\tavg batch logits: \t{0}'.format((torch.mean(output[:][0]),torch.mean(output[:][1]))))
 
             # compute loss
             cross_entropy = torch.nn.functional.cross_entropy(output, target)
@@ -44,13 +51,20 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
                 # calculate cluster cost
                 prototypes_of_correct_class = torch.t(model.module.prototype_class_identity[:,label]).cuda()
                 inverted_distances, _ = torch.max((max_dist - min_distances) * prototypes_of_correct_class, dim=1)
-                cluster_cost = torch.mean(max_dist - inverted_distances)
+                dist_difference = max_dist - inverted_distances
+                cluster_cost = torch.mean(dist_difference)
+                cluster_cost_dem = torch.mean(dist_difference[target == 1])
+                cluster_cost_cn = torch.mean(dist_difference[target == 0])
 
                 # calculate separation cost
                 prototypes_of_wrong_class = 1 - prototypes_of_correct_class
                 inverted_distances_to_nontarget_prototypes, _ = \
                     torch.max((max_dist - min_distances) * prototypes_of_wrong_class, dim=1)
-                separation_cost = torch.mean(max_dist - inverted_distances_to_nontarget_prototypes)
+                sep_dist_difference = max_dist - inverted_distances_to_nontarget_prototypes
+                separation_cost = torch.mean(sep_dist_difference)
+                separation_cost_dem = torch.mean(sep_dist_difference[target == 1])
+                separation_cost_cn = torch.mean(sep_dist_difference[target == 0])
+                
 
                 # calculate avg cluster cost
                 avg_separation_cost = \
@@ -76,6 +90,12 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
             n_batches += 1
             total_cross_entropy += cross_entropy.item()
             total_cluster_cost += cluster_cost.item()
+            if not isnan(cluster_cost_dem):
+                total_cluster_dem += cluster_cost_dem.item()
+                total_sep_dem += separation_cost_dem.item()
+            if not isnan(cluster_cost_cn):
+                total_cluster_cn += cluster_cost_cn.item()
+                total_sep_cn += separation_cost_cn.item()
             total_separation_cost += separation_cost.item()
             total_avg_separation_cost += avg_separation_cost.item()
 
@@ -96,6 +116,7 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
                           + coefs['l1'] * l1)
                 else:
                     loss = cross_entropy + 0.8 * cluster_cost + 1e-4 * l1
+            total_loss = total_loss + loss
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -111,18 +132,22 @@ def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l
     log('\ttime: \t{0}'.format(end -  start))
     log('\tcross ent: \t{0}'.format(total_cross_entropy / n_batches))
     log('\tcluster: \t{0}'.format(total_cluster_cost / n_batches))
+    log('\tcluster Dem: \t{0}'.format(total_cluster_dem / n_batches))
+    log('\tcluster CN: \t{0}'.format(total_cluster_cn / n_batches))
     if class_specific:
         log('\tseparation:\t{0}'.format(total_separation_cost / n_batches))
+        log('\tseparation Dem: \t{0}'.format(total_sep_dem / n_batches))
+        log('\tseparation CN: \t{0}'.format(total_sep_cn / n_batches))
         log('\tavg separation:\t{0}'.format(total_avg_separation_cost / n_batches))
     log('\taccu: \t\t{0}%'.format(n_correct / n_examples * 100))
     log('\tl1: \t\t{0}'.format(model.module.last_layer.weight.norm(p=1).item()))
+    log('\ttotal loss:\t{0}'.format(total_loss / n_batches))
     p = model.module.prototype_vectors.view(model.module.num_prototypes, -1).cpu()
     with torch.no_grad():
         p_avg_pair_dist = torch.mean(list_of_distances(p, p))
     log('\tp dist pair: \t{0}'.format(p_avg_pair_dist.item()))
 
-    return n_correct / n_examples
-
+    return n_correct / n_examples, total_cross_entropy / n_batches,total_cluster_cost / n_batches,cluster_cost_dem / n_batches, cluster_cost_cn / n_batches, total_separation_cost / n_batches, separation_cost_dem / n_batches, separation_cost_cn / n_batches,total_loss / n_batches
 
 def train(model, dataloader, optimizer, class_specific=False, coefs=None, log=print):
     assert(optimizer is not None)

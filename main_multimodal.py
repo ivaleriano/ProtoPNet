@@ -1,16 +1,11 @@
-from operator import is_
-from ast import literal_eval
 import os
-from pathlib import Path
 import shutil
-from tokenize import String
-from typing import Sequence,Tuple
+from typing import Sequence
 
 import torch
 import torch.utils.data
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 import torchvision.transforms as transforms
-import torchvision.datasets as datasets
 
 import argparse
 import re
@@ -29,7 +24,6 @@ from wrappers_multimodal import NamedDataLoader, mesh_collate
 from train_adni_multimodal import get_image_transform
 from train_adni_multimodal import DIAGNOSIS_CODES_BINARY
 from train_adni_multimodal import AdniDateset
-import json
 # book keeping namings and code
 #from settings import base_architecture, img_size, prototype_shape, num_classes, \
 #                     prototype_activation_function, add_on_layers_type, experiment_run
@@ -59,7 +53,7 @@ def create_parser():
     parser.add_argument("--train_push_batch_size", type=int, default=100)
     parser.add_argument("--base_architecture")
     parser.add_argument("--img_size_mri", type=int, default=138)
-    parser.add_argument("--img_size_pet", type=int, default=161)
+    parser.add_argument("--img_size_pet", type=int, default=130)
     parser.add_argument("--prototype_shape", default=(30, 128, 1, 1))
     parser.add_argument("--num_classes", type=int, default=2)
     parser.add_argument("--prototype_activation_function", default='log')
@@ -141,9 +135,6 @@ def main(args=None):
     #from settings import train_dir, test_dir, train_push_dir, \
     #                     train_batch_size, test_batch_size, train_push_batch_size
 
-    normalize = transforms.Normalize(mean=mean,
-                                    std=std)
-
     # all datasets
     train_img_transform = get_image_transform(is_training=True)
     eval_img_transform = get_image_transform(is_training=False)
@@ -167,10 +158,7 @@ def main(args=None):
         batchsize=train_batch_size, dataset=train_dataset, 
         model_data_names=output_names, is_training=True)
     train_loader.num_workers = 12
-    # torch.utils.data.DataLoader(
-    #     train_dataset, batch_size=train_batch_size, shuffle=True,
-    #     num_workers=12, pin_memory=False)   # original 4 icxel commented for multimodal
-
+    
     train_push_batch_size = int(args.train_push_batch_size)
     print("Loading training data 2 from", train_dir)
     train_push_dataset = AdniDateset(
@@ -183,9 +171,6 @@ def main(args=None):
     train_push_loader = _make_named_data_loader(
         batchsize=train_push_batch_size, dataset=train_push_dataset, 
         model_data_names=output_names, is_training=True) 
-    # torch.utils.data.DataLoader(
-    #     train_push_dataset, batch_size=train_push_batch_size, shuffle=True,
-    #     num_workers=12, pin_memory=False) # shuffle = False Icxel commented for multimodal
 
     test_dir = [args.test_dir]
     test_batch_size = int(args.test_batch_size)
@@ -200,9 +185,6 @@ def main(args=None):
     test_loader = _make_named_data_loader(
         batchsize=test_batch_size, dataset=test_dataset, 
         model_data_names=output_names, is_training=False)
-    # torch.utils.data.DataLoader(
-    #     test_dataset, batch_size=test_batch_size, shuffle=True,
-    #     num_workers=12, pin_memory=False) # shuffle = False Icxel commented for multimodal
 
     # we should look into distributed sampler more carefully at torch.utils.data.distributed.DistributedSampler(train_dataset)
     log('training set size: {0}'.format(len(train_loader.dataset)))
@@ -274,6 +256,75 @@ def main(args=None):
     num_warm_epochs = int(args.num_warm_epochs)
     push_start = int(args.push_start)
     push_epochs = [int(x) for x in args.push_epochs[1:-1].split(',')]
+    accu_arr = list()
+    accu_t1_arr = list()
+    accu_fdg_arr =list()
+    cross_ent_arr = list()
+    cross_ent_t1_arr = list()
+    cross_ent_fdg_arr = list()
+    cluster_arr = list()
+    cluster_t1_arr = list()
+    cluster_fdg_arr = list()
+    sep_arr = list()
+    sep_t1_arr = list()
+    sep_fdg_arr =list()
+    loss_arr = list()
+    loss_t1_arr = list()
+    loss_fdg_arr = list()
+    accu_val_arr = list()
+    accu_val_t1_arr = list()
+    accu_val_fdg_arr = list()
+    cross_ent_val_arr = list()
+    cross_ent_val_t1_arr = list()
+    cross_ent_val_fdg_arr = list()
+    cluster_val_arr = list()
+    cluster_val_t1_arr = list()
+    cluster_val_fdg_arr = list()
+    sep_val_arr = list()
+    sep_val_t1_arr = list()
+    sep_val_fdg_arr =list()
+    accu_first_push_arr = list()
+    accu_first_push_t1_arr = list()
+    accu_first_push_fdg_arr = list()
+    cross_ent_first_push_arr = list()
+    cross_ent_first_push_t1_arr = list()
+    cross_ent_first_push_fdg_arr = list()
+    cluster_first_push_arr = list()
+    cluster_first_push_t1_arr = list()
+    cluster_first_push_fdg_arr = list()
+    sep_first_push_arr = list()
+    sep_first_push_t1_arr = list()
+    sep_first_push_fdg_arr =list()
+    loss_first_push_arr = list()
+    loss_first_push_t1_arr = list()
+    loss_first_push_fdg_arr = list()
+    accu_push_arr = list()
+    accu_push_t1_arr = list()
+    accu_push_fdg_arr = list()
+    cross_ent_push_arr = list()
+    cross_ent_push_t1_arr = list()
+    cross_ent_push_fdg_arr = list()
+    cluster_push_arr = list()
+    cluster_push_t1_arr = list()
+    cluster_push_fdg_arr = list()
+    sep_push_arr = list()
+    sep_push_t1_arr = list()
+    sep_push_fdg_arr =list()
+    loss_push_arr = list()
+    loss_push_t1_arr = list()
+    loss_push_fdg_arr = list()
+    accu_push_val_arr = list()
+    accu_push_val_t1_arr = list()
+    accu_push_val_fdg_arr = list()
+    cross_ent_val_push_arr = list()
+    cross_ent_val_push_t1_arr = list()
+    cross_ent_val_push_fdg_arr = list()
+    cluster_val_push_arr = list()
+    cluster_val_push_t1_arr = list()
+    cluster_val_push_fdg_arr = list()
+    sep_val_push_arr = list()
+    sep_val_push_t1_arr = list()
+    sep_val_push_fdg_arr =list()
     for epoch in range(num_train_epochs):
         log('epoch: \t{0}'.format(epoch))
 
@@ -284,14 +335,40 @@ def main(args=None):
         else:
             tnt.joint(model=ppnet_multi, log=log)
             joint_lr_scheduler.step()
-            _ = tnt.train(model=ppnet_multi, dataloader=train_loader, optimizer=joint_optimizer,
+            info_train = tnt.train(model=ppnet_multi, dataloader=train_loader, optimizer=joint_optimizer,
                         class_specific=class_specific, coefs=coefs, log=log)
+            accu_arr.append(info_train['sum'])
+            accu_t1_arr.append(info_train['t1'])
+            accu_fdg_arr.append(info_train['fdg'])
+            cross_ent_arr.append(info_train['cross_ent'])
+            cross_ent_t1_arr.append(info_train['cross_ent_t1'])
+            cross_ent_fdg_arr.append(info_train['cross_ent_fdg'])
+            cluster_arr.append(info_train['cluster'])
+            cluster_t1_arr.append(info_train['cluster_t1'])
+            cluster_fdg_arr.append(['cluster_fdg'])
+            sep_arr.append(info_train['separation'])
+            sep_t1_arr.append(info_train['separation_t1'])
+            sep_fdg_arr.append(info_train['separation_fdg'])
+            loss_arr.append(info_train['loss'].item())
+            loss_t1_arr.append(info_train['loss_t1'].item())
+            loss_fdg_arr.append(info_train['loss_fdg'].item())
 
-        accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
+        info_val = tnt.test(model=ppnet_multi, dataloader=test_loader,
                         class_specific=class_specific, log=log)
-        save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'nopush', accu=accu,
-                                    target_accu=0.60, log=log) #changed by Icxel, target_accu = 0.70
-
+        save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'nopush', accu=info_val['sum'],
+                                    target_accu=0.80, log=log) #changed by Icxel, target_accu = 0.70
+        accu_val_arr.append(info_val['sum'])
+        accu_val_t1_arr.append(info_val['t1'])
+        accu_val_fdg_arr.append(info_val['fdg'])
+        cross_ent_val_arr.append(info_val['cross_ent'])
+        cross_ent_val_t1_arr.append(info_val['cross_ent_t1'])
+        cross_ent_val_fdg_arr.append(info_val['cross_ent_fdg'])
+        cluster_val_arr.append(info_val['cluster'])
+        cluster_val_t1_arr.append(info_val['cluster_t1'])
+        cluster_val_fdg_arr.append(info_val['cluster_fdg'])
+        sep_val_arr.append(info_val['separation'])
+        sep_val_t1_arr.append(info_val['separation_t1'])
+        sep_val_fdg_arr.append(info_val['separation_fdg'])
         if epoch >= push_start and epoch in push_epochs:
             push_multimodal.push_prototypes(
                 train_push_loader, # pytorch dataloader (must be unnormalized in [0,1])
@@ -306,34 +383,124 @@ def main(args=None):
                 proto_bound_boxes_filename_prefix=proto_bound_boxes_filename_prefix,
                 save_prototype_class_identity=True,
                 log=log)
-            accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
+            info_first_push = tnt.test(model=ppnet_multi, dataloader=test_loader,
                             class_specific=class_specific, log=log)
-            save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'push', accu=accu,
-                                        target_accu=0.60, log=log)
-
+            save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + 'push', accu=info_first_push['sum'],
+                                        target_accu=0.80, log=log)
+            accu_first_push_arr.append(info_first_push['sum'])
+            accu_first_push_t1_arr.append(info_first_push['t1'])
+            accu_first_push_fdg_arr.append(info_first_push['fdg'])
+            cross_ent_first_push_arr.append(info_first_push['cross_ent'])
+            cross_ent_first_push_t1_arr.append(info_first_push['cross_ent_t1'])
+            cross_ent_first_push_fdg_arr.append(info_first_push['cross_ent_fdg'])
+            cluster_first_push_arr.append(info_first_push['cluster'])
+            cluster_first_push_t1_arr.append(info_first_push['cluster_t1'])
+            cluster_first_push_fdg_arr.append(info_first_push['cluster_fdg'])
+            sep_first_push_arr.append(info_first_push['separation'])
+            sep_first_push_t1_arr.append(info_first_push['separation_t1'])
+            sep_first_push_fdg_arr.append(info_first_push['separation_fdg'])
+            loss_first_push_arr.append(info_first_push['loss'])
+            loss_first_push_t1_arr.append(info_first_push['loss_t1'].item())
+            loss_first_push_fdg_arr.append(info_first_push['loss_fdg'].item())
             if prototype_activation_function != 'linear':
                 tnt.last_only(model=ppnet_multi, log=log)
                 for i in range(20):
                     log('iteration: \t{0}'.format(i))
-                    _ = tnt.train(model=ppnet_multi, dataloader=train_loader, optimizer=last_layer_optimizer,
+                    info_push = tnt.train(model=ppnet_multi, dataloader=train_loader, optimizer=last_layer_optimizer,
                                 class_specific=class_specific, coefs=coefs, log=log)
-                    accu = tnt.test(model=ppnet_multi, dataloader=test_loader,
+                    accu_push_arr.append(info_push['sum'])
+                    accu_push_t1_arr.append(info_push['t1'])
+                    accu_push_fdg_arr.append(info_push['fdg'])
+                    cross_ent_push_arr.append(info_push['cross_ent'])
+                    cross_ent_push_t1_arr.append(info_push['cross_ent_t1'])
+                    cross_ent_push_fdg_arr.append(info_push['cross_ent_fdg'])
+                    cluster_push_arr.append(info_push['cluster'])
+                    cluster_push_t1_arr.append(info_push['cluster_t1'])
+                    cluster_push_fdg_arr.append(info_push['cluster_fdg'])
+                    sep_push_arr.append(info_push['separation'])
+                    sep_push_t1_arr.append(info_push['separation_t1'])
+                    sep_push_fdg_arr.append(info_push['separation_fdg'])
+                    loss_push_arr.append(info_push['loss'].item())
+                    loss_push_t1_arr.append(info_push['loss_t1'].item())
+                    loss_push_fdg_arr.append(info_push['loss_fdg'].item())
+                    info_push_val = tnt.test(model=ppnet_multi, dataloader=test_loader,
                                     class_specific=class_specific, log=log)
-                    save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + '_' + str(i) + 'push', accu=accu,
-                                                target_accu=0.60, log=log)
-    
+                    accu_push_val_arr.append(info_push_val['sum'])
+                    accu_push_val_t1_arr.append(info_push_val['t1'])
+                    accu_push_val_fdg_arr.append(info_push_val['fdg'])
+                    cross_ent_val_push_arr.append(info_push_val['cross_ent'])
+                    cross_ent_val_push_t1_arr.append(info_push_val['cross_ent_t1'])
+                    cross_ent_val_push_fdg_arr.append(info_push_val['cross_ent_fdg'])
+                    cluster_val_push_arr.append(info_push_val['cluster'])
+                    cluster_val_push_t1_arr.append(info_push_val['cluster_t1'])
+                    cluster_val_push_fdg_arr.append(info_push_val['cluster_fdg'])
+                    sep_val_push_arr.append(info_push_val['separation'])
+                    sep_val_push_t1_arr.append(info_push_val['separation_t1'])
+                    sep_val_push_fdg_arr.append(info_push_val['separation_fdg'])
+                    save.save_model_w_condition(model=ppnet, model_dir=model_dir, model_name=str(epoch) + '_' + str(i) + 'push', accu=info_push_val['sum'],
+                                                target_accu=0.80, log=log)
+    log('\taccuracy array: \t{0}'.format(accu_arr))
+    log('\tcross ent array: \t{0}'.format(cross_ent_arr))
+    log('\tcluster array: \t{0}'.format(cluster_arr))
+    log('\tcluster array t1: \t{0}'.format(cluster_t1_arr))
+    log('\tcluster array fdg: \t{0}'.format(cluster_fdg_arr))
+    log('\tsep array: \t{0}'.format(sep_arr))
+    log('\tsep array t1: \t{0}'.format(sep_t1_arr))
+    log('\tsep array fdg: \t{0}'.format(sep_fdg_arr))
+    log('\tloss array: \t{0}'.format(loss_arr))
+    log('\taccuracy val array: \t{0}'.format(accu_val_arr))
+    log('\tcross ent val array: \t{0}'.format(cross_ent_val_arr))
+    log('\tcluster val array: \t{0}'.format(cluster_val_arr))
+    log('\tcluster val array t1: \t{0}'.format(cluster_val_t1_arr))
+    log('\tcluster val array fdg: \t{0}'.format(cluster_val_fdg_arr))
+    log('\tsep val array: \t{0}'.format(sep_val_arr))
+    log('\tsep val t1 array: \t{0}'.format(sep_val_t1_arr))
+    log('\tsep val fdg array: \t{0}'.format(sep_val_fdg_arr))
+    log('\taccuracy first push array: \t{0}'.format(accu_first_push_arr))
+    log('\tcross ent first push array: \t{0}'.format(cross_ent_first_push_arr))
+    log('\tcluster first push array: \t{0}'.format(cluster_first_push_arr))
+    log('\tcluster first push t1 array: \t{0}'.format(cluster_first_push_t1_arr))
+    log('\tcluster first push fdg array: \t{0}'.format(cluster_first_push_fdg_arr))
+    log('\tsep first push array: \t{0}'.format(sep_first_push_arr))
+    log('\tsep first push array t1: \t{0}'.format(sep_first_push_t1_arr))
+    log('\tsep first push array fdg: \t{0}'.format(sep_first_push_fdg_arr))
+    log('\tloss first push array: \t{0}'.format(loss_first_push_arr))
+    log('\taccuracy push array: \t{0}'.format(accu_push_arr))
+    log('\tcross ent push array: \t{0}'.format(cross_ent_push_arr))
+    log('\tcluster push array: \t{0}'.format(cluster_push_arr))
+    log('\tcluster push array t1: \t{0}'.format(cluster_push_t1_arr))
+    log('\tcluster push array fdg: \t{0}'.format(cluster_push_fdg_arr))
+    log('\tsep push array: \t{0}'.format(sep_push_arr))
+    log('\tsep push array t1: \t{0}'.format(sep_push_t1_arr))
+    log('\tsep push array fdg: \t{0}'.format(sep_push_fdg_arr))
+    log('\tloss push array: \t{0}'.format(loss_push_arr))
+    log('\taccuracy push val array: \t{0}'.format(accu_push_val_arr))
+    log('\tcross ent push val array: \t{0}'.format(cross_ent_val_push_arr))
+    log('\tcluster push val array: \t{0}'.format(cluster_val_push_arr))
+    log('\tcluster push val t1 array: \t{0}'.format(cluster_val_push_t1_arr))
+    log('\tcluster push val fdg array: \t{0}'.format(cluster_val_push_fdg_arr))
+    log('\tsep push val array: \t{0}'.format(sep_val_push_arr))
+    log('\tsep push val array t1: \t{0}'.format(sep_val_push_t1_arr))
+    log('\tsep push val array fdg: \t{0}'.format(sep_val_push_fdg_arr))
     logclose()
 
 if __name__ == "__main__":
-    args=["--num_train_epochs",'201',"--num_warm_epochs",'0',"--push_start",'10',"--push_epochs",'[5,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240]',
+    args=["--num_train_epochs",'201',"--num_warm_epochs",'0',"--push_start",'1',"--push_epochs",'[1,2,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240]',
     "--train_dir","/mnt/nas/Users/Sebastian/adni-mri-pet/registered/classification-nomci/mri-pet/1-train.h5", "--test_dir","/mnt/nas/Users/Sebastian/adni-mri-pet/registered/classification-nomci/mri-pet/1-valid.h5",
-    "--coefs",'{"crs_ent":1.3,"clst":0.5,"sep":-0.08,"l1":1e-4}',"--last_layer_optimizer_lr",'5e-4', "--warm_optimizer_lrs",'{"add_on_layers":3e-3,"prototype_vectors":3e-3}',
+    "--coefs",'{"crs_ent":1.3,"clst":0.5,"sep":0.08,"l1":1e-4}',"--last_layer_optimizer_lr",'5e-4', "--warm_optimizer_lrs",'{"add_on_layers":3e-3,"prototype_vectors":3e-3}',
     "--joint_lr_step_size",'50', "--joint_optimizer_lrs",'{"features":1e-4,"add_on_layers":1e-4,"prototype_vectors":1e-4}', "--train_push_batch_size",'150',
-    "--test_batch_size",'75',"--train_batch_size",'150',"--experiment_run",'002',"--add_on_layers_type",'regular',"--prototype_activation_function",'log',"--num_classes",'2',
-    "--prototype_shape",'(30,128,1,1)',"--img_size_mri",'138',"--img_size_pet","161","--base_architecture",'resnet18']
+    "--test_batch_size",'75',"--train_batch_size",'150',"--experiment_run",'010',"--add_on_layers_type",'regular',"--prototype_activation_function",'log',"--num_classes",'2',
+    "--prototype_shape",'(30,128,1,1)',"--img_size_mri",'138',"--img_size_pet","130","--base_architecture",'resnet18']
     main(args)
 
     
+    #{"crs_ent":1.3,"clst":0.8,"sep":-0.08,"l1":1e-4}  - 002
+    #'{"crs_ent":1,"clst":0.6,"sep":-0.08,"l1":1e-4}' --- 003
+    #{"features":1e-4,"add_on_layers":1e-3,"prototype_vectors":1e-3} -- 005
+    #  "--coefs",'{"crs_ent":1.2,"clst":0.6,"sep":-0.08,"l1":1e-4}', "--joint_optimizer_lrs",'{"features":1e-4,"add_on_layers":5e-4,"prototype_vectors":5e-4}' --006
+    #coefs",'{"crs_ent":1.5,"clst":0.6,"sep":-0.08,"l1":1e-4}' - 007
+
+
     # IDEAS
     # increase step size for epochs before decreasing lr oooor change gamma to 0.95 and then increase lr a bit
     # monitor specifically  cross entropy
@@ -343,8 +510,6 @@ if __name__ == "__main__":
     # train for 50-60 epochs
     # maybe run in parallel 
     # add PET and MRI (different splits so performance might be a bit different)
-
-    
 
     # change datasets
     # compare to baseline

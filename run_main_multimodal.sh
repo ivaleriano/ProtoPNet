@@ -11,7 +11,7 @@ train_batch_size=150
 test_batch_size=75
 train_push_batch_size=150
 # changed by Icxel 1e-4 #3e-3  #3e-3
-joint_optimizer_lrs={"features":5e-4,"add_on_layers":5e-4,"prototype_vectors":5e-4}
+joint_optimizer_lrs={{"features":1e-4,"add_on_layers":3e-3,"prototype_vectors":3e-3}}
 joint_lr_step_size=50
 
 #3e-3 #3e-3

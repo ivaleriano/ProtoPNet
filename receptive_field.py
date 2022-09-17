@@ -33,6 +33,7 @@ def compute_layer_rf_info(layer_filter_size, layer_stride, layer_padding,
     return [n_out, j_out, r_out, start_out]
 
 def compute_rf_protoL_at_spatial_location(img_size, height_index, width_index, protoL_rf_info):
+    print(protoL_rf_info, protoL_rf_info[0], height_index)
     n = protoL_rf_info[0]
     j = protoL_rf_info[1]
     r = protoL_rf_info[2]
