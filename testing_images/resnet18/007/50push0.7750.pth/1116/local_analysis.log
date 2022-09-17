@@ -1,0 +1,1335 @@
+load model from /home/icxel/saved_multimodal_models/resnet18/007/50push0.7750.pth
+model base architecture: resnet18
+experiment run: 007/
+MRI Prototypes are chosen from 2 number of classes.
+Their class identities are: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+PET Prototypes are chosen from 2 number of classes.
+Their class identities are: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+All MRI prototypes connect most strongly to their respective classes.
+All PET prototypes connect most strongly to their respective classes.
+0 (0, 0)
+0 (1, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+Most activated 10 prototypes of this image MRI:
+top 1 activated prototype for this image MRI:
+prototype index mri: 6
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.18658170104026794
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 2 activated prototype for this image MRI:
+prototype index mri: 13
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.17823681235313416
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 3 activated prototype for this image MRI:
+prototype index mri: 7
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.16495415568351746
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 4 activated prototype for this image MRI:
+prototype index mri: 2
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.156036838889122
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 5 activated prototype for this image MRI:
+prototype index mri: 14
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.1258726716041565
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 6 activated prototype for this image MRI:
+prototype index mri: 11
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.10933626443147659
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 7 activated prototype for this image MRI:
+prototype index mri: 9
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06993956118822098
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 8 activated prototype for this image MRI:
+prototype index mri: 15
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.06873289495706558
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 9 activated prototype for this image MRI:
+prototype index mri: 0
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06682901084423065
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 10 activated prototype for this image MRI:
+prototype index mri: 5
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06647515296936035
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 11 activated prototype for this image MRI:
+prototype index mri: 10
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06429189443588257
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 12 activated prototype for this image MRI:
+prototype index mri: 12
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.0641050785779953
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 13 activated prototype for this image MRI:
+prototype index mri: 19
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.06369253993034363
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 14 activated prototype for this image MRI:
+prototype index mri: 3
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06284455209970474
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 15 activated prototype for this image MRI:
+prototype index mri: 4
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06193074956536293
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 16 activated prototype for this image MRI:
+prototype index mri: 22
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05976448580622673
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 17 activated prototype for this image MRI:
+prototype index mri: 24
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05970047786831856
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 18 activated prototype for this image MRI:
+prototype index mri: 25
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.059518758207559586
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 19 activated prototype for this image MRI:
+prototype index mri: 1
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.05909173563122749
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 20 activated prototype for this image MRI:
+prototype index mri: 28
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.058346785604953766
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 21 activated prototype for this image MRI:
+prototype index mri: 23
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05830787867307663
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 22 activated prototype for this image MRI:
+prototype index mri: 20
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05661249905824661
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 23 activated prototype for this image MRI:
+prototype index mri: 18
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05652102455496788
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 24 activated prototype for this image MRI:
+prototype index mri: 17
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.055803246796131134
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 25 activated prototype for this image MRI:
+prototype index mri: 27
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05558834224939346
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 26 activated prototype for this image MRI:
+prototype index mri: 16
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.0550435446202755
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 27 activated prototype for this image MRI:
+prototype index mri: 8
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.054570358246564865
+last layer connection with predicted class mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 28 activated prototype for this image MRI:
+prototype index mri: 29
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05287360027432442
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 29 activated prototype for this image MRI:
+prototype index mri: 26
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05134032666683197
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+top 30 activated prototype for this image MRI:
+prototype index mri: 21
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.04927966371178627
+last layer connection with predicted class mri: -0.5
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+Most activated 10 prototypes of this image PET:
+top 1 activated prototype for this image PET:
+prototype index pet: 15
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.12916088104248047
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 2 activated prototype for this image PET:
+prototype index pet: 1
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.07071957737207413
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 3 activated prototype for this image PET:
+prototype index pet: 21
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06986808776855469
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 4 activated prototype for this image PET:
+prototype index pet: 12
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06817907094955444
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 5 activated prototype for this image PET:
+prototype index pet: 4
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0677841380238533
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 6 activated prototype for this image PET:
+prototype index pet: 8
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0674372985959053
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 7 activated prototype for this image PET:
+prototype index pet: 26
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06709881126880646
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 8 activated prototype for this image PET:
+prototype index pet: 24
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06606671214103699
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 9 activated prototype for this image PET:
+prototype index pet: 17
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06605343520641327
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 10 activated prototype for this image PET:
+prototype index pet: 18
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06511921435594559
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 11 activated prototype for this image PET:
+prototype index pet: 0
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06510055810213089
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 12 activated prototype for this image PET:
+prototype index pet: 6
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06475234776735306
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 13 activated prototype for this image PET:
+prototype index pet: 5
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06402457505464554
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 14 activated prototype for this image PET:
+prototype index pet: 3
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06359667330980301
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 15 activated prototype for this image PET:
+prototype index pet: 23
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06308364868164062
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 16 activated prototype for this image PET:
+prototype index pet: 7
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0626177191734314
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 17 activated prototype for this image PET:
+prototype index pet: 10
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06260921061038971
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 18 activated prototype for this image PET:
+prototype index pet: 20
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06229384243488312
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 19 activated prototype for this image PET:
+prototype index pet: 25
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.0616670623421669
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 20 activated prototype for this image PET:
+prototype index pet: 28
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06161158159375191
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 21 activated prototype for this image PET:
+prototype index pet: 2
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0609535276889801
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 22 activated prototype for this image PET:
+prototype index pet: 9
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06035250797867775
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 23 activated prototype for this image PET:
+prototype index pet: 22
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05952224135398865
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 24 activated prototype for this image PET:
+prototype index pet: 29
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05945417284965515
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 25 activated prototype for this image PET:
+prototype index pet: 14
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.05917578190565109
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 26 activated prototype for this image PET:
+prototype index pet: 19
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05897463858127594
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 27 activated prototype for this image PET:
+prototype index pet: 27
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.058874163776636124
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 28 activated prototype for this image PET:
+prototype index pet: 13
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.056275174021720886
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 29 activated prototype for this image PET:
+prototype index pet: 16
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05518987029790878
+last layer connection with predicted class pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+top 30 activated prototype for this image PET:
+prototype index pet: 11
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.05405662953853607
+last layer connection with predicted class pet: -0.5
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image pet:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+0 (0, 0)
+0 (1, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+0 (0, 0)
+0 (0, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+0 (0, 0)
+0 (0, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+0 (0, 0)
+0 (0, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (1, 0)
+0 (1, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 1
+Actual: 0
+Predicted OVERALL: 1
+Actual: 0
+0 (1, 0)
+0 (0, 0)
+0 (0, 0)
+Predicted MRI: 1
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+0 (0, 0)
+0 (0, 0)
+0 (0, 0)
+Predicted MRI: 0
+Actual: 0
+Predicted PET: 0
+Actual: 0
+Predicted OVERALL: 0
+Actual: 0
+Prototypes from top-2 classes mri:
+top 1 predicted class mri: 0
+logit of the class mri: 1.060533
+prototype index mri: 6
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.18658170104026794
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 13
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.17823681235313416
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 7
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.16495415568351746
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 2
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.156036838889122
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 14
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.1258726716041565
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 11
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.10933626443147659
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 9
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06993956118822098
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 0
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06682901084423065
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 5
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06647515296936035
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 10
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06429189443588257
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 12
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.0641050785779953
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 3
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06284455209970474
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 4
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.06193074956536293
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 1
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.05909173563122749
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 8
+prototype class identity mri: 0
+activation value (similarity score) mri: 0.054570358246564865
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+***************************************************************
+top 2 predicted class mri: 1
+logit of the class mri: 0.115578
+prototype index mri: 15
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.06873289495706558
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 19
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.06369253993034363
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 22
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05976448580622673
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 24
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05970047786831856
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 25
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.059518758207559586
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 28
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.058346785604953766
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 23
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05830787867307663
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 20
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05661249905824661
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 18
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05652102455496788
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 17
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.055803246796131134
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 27
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05558834224939346
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 16
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.0550435446202755
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 29
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05287360027432442
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 26
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.05134032666683197
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+prototype index mri: 21
+prototype class identity mri: 1
+activation value (similarity score) mri: 0.04927966371178627
+last layer connection mri: 1.0
+most highly activated patch of the chosen image by this prototype mri:
+most highly activated patch by this prototype shown in the original image mri:
+prototype activation map of the chosen image mri:
+--------------------------------------------------------------
+***************************************************************
+Prediction MRI is correct.
+Prototypes from top-2 classes pet:
+top 1 predicted class pet: 1
+logit of the class pet: 0.530221
+prototype index pet: 15
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.12916088104248047
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 21
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06986808776855469
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 26
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06709881126880646
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 24
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06606671214103699
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 17
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06605343520641327
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 18
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06511921435594559
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 23
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06308364868164062
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 20
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06229384243488312
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 25
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.0616670623421669
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 28
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.06161158159375191
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 22
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05952224135398865
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 29
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05945417284965515
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 19
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05897463858127594
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 27
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.058874163776636124
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 16
+prototype class identity pet: 1
+activation value (similarity score) pet: 0.05518987029790878
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+***************************************************************
+top 2 predicted class pet: 0
+logit of the class pet: 0.445616
+prototype index pet: 1
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.07071957737207413
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 12
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06817907094955444
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 4
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0677841380238533
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 8
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0674372985959053
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 0
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06510055810213089
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 6
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06475234776735306
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 5
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06402457505464554
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 3
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06359667330980301
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 7
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0626177191734314
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 10
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06260921061038971
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 2
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.0609535276889801
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 9
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.06035250797867775
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 14
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.05917578190565109
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 13
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.056275174021720886
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+prototype index pet: 11
+prototype class identity pet: 0
+activation value (similarity score) pet: 0.05405662953853607
+last layer connection pet: 1.0
+most highly activated patch of the chosen image by this prototype pet:
+most highly activated patch by this prototype shown in the original image PET:
+prototype activation map of the chosen image pet:
+--------------------------------------------------------------
+***************************************************************
+Prediction PET is wrong.
